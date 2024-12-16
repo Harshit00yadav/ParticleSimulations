@@ -24,6 +24,10 @@ class App:
                     self.world.toggles["gravity"] = not self.world.toggles["gravity"]
                 elif event.key == pygame.K_c:
                     self.world.toggles["cloth"] = not self.world.toggles["cloth"]
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                self.world.toggles["mouse_interactions"] = True
+            elif event.type == pygame.MOUSEBUTTONUP:
+                self.world.toggles["mouse_interactions"] = False
 
     def update(self):
         self.world.update()

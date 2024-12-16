@@ -12,7 +12,7 @@ class Particle:
         self.color = (255, 0, 0)
         self.radius = 2
 
-    def update(self, air_friction=0, forces=[]):
+    def update(self, air_friction=0.0, forces=[]):
         v = (self.position - self.previous_position) * (1 - air_friction)
         self.previous_position.x, self.previous_position.y = self.position
         self.position += v
