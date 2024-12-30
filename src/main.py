@@ -1,4 +1,5 @@
 import pygame
+from pygame.font import Font
 from sim.world import World
 
 class App:
@@ -8,6 +9,8 @@ class App:
         self.display = pygame.display.set_mode(self.resolution)
         self.clock = pygame.time.Clock()
         self.FPS = 60
+        pygame.font.init()
+        self.font = Font('./src/fonts/ShureTechMonoNerdFont-Regular.ttf', 12)
         self._initialization_()
 
     def _initialization_(self):
@@ -24,6 +27,15 @@ class App:
                     self.world.toggles["gravity"] = not self.world.toggles["gravity"]
                 elif event.key == pygame.K_c:
                     self.world.toggles["cloth"] = not self.world.toggles["cloth"]
+                elif event.key == pygame.K_s:
+                    self.world.toggles["crystall"] = not self.world.toggles["crystall"]
+                elif event.key == pygame.K_SPACE:
+                    for key in self.world.toggles.keys():
+                        self.world.toggles[key] = False
+                    self.world.formation_complete = False
+                    self.world.constrains.clear()
+                    self.world.anchors.clear()
+
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 self.world.toggles["mouse_interactions"] = True
             elif event.type == pygame.MOUSEBUTTONUP:
@@ -34,7 +46,7 @@ class App:
 
     def render(self):
         self.display.fill((0, 0, 0))
-        self.world.render(self.display)
+        self.world.render(self.display, self.font)
 
     def run(self):
         while not self.exit:
